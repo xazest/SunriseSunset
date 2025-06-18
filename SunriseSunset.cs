@@ -34,7 +34,7 @@ class SunriseSunset
         {
             var response = await client.GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<SunriseSunset>(response);
-            Maper<SunriseSunset, SunriseSunset>.XMaper.Map(result, this);
+            XMapper<SunriseSunset, SunriseSunset>.xMapper.Map(result, this);
         }
     }
     public static async Task<SunriseSunset> Create()

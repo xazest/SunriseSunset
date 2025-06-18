@@ -14,7 +14,7 @@ class IpApiContext
         {
             var response = await client.GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<IpApiContext>(response);
-            Maper<IpApiContext, IpApiContext>.XMaper.Map(result, this);
+            XMapper<IpApiContext, IpApiContext>.xMapper.Map(result, this);
 
             Console.WriteLine($"Coordinates acquired\nLatitude - {Latitude}" +
                 $"\nLongitude - {Longitude}\n");
