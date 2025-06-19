@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-
 class IpApiContext
 {
     private IpApiContext() { }
@@ -10,15 +9,13 @@ class IpApiContext
     private async Task GetGeoDataAsync()
     {
         string url = $"http://ip-api.com/json/?fields=lat,lon,timezone";
-        using (HttpClient client = new())
-        {
-            var response = await client.GetStringAsync(url);
-            var result = JsonConvert.DeserializeObject<IpApiContext>(response);
-            XMapper<IpApiContext, IpApiContext>.xMapper.Map(result, this);
+        var response = await HttpC.Client.GetStringAsync(url);
+        var result = JsonConvert.DeserializeObject<IpApiContext>(response);
+        XMapper.Map(result, this);
 
-            Console.WriteLine($"Coordinates acquired\nLatitude - {Latitude}" +
+        Console.Clear();
+        Console.WriteLine($"Coordinates acquired\nLatitude - {Latitude}" +
                 $"\nLongitude - {Longitude}\n");
-        }
     }
     public static async Task<IpApiContext> Create()
     {
