@@ -2,16 +2,14 @@
 
 class SunriseSunset
 {
-
-
     private IpApiContext _geoData;
     private SunriseSunset() 
     {
         Results = new ResultsContainer();
     }
 
-    public string PSunrise { get => Results.Sunrise; }
-    public string PSunset { get => Results.Sunset; }
+    public TimeOnly SunriseTime { get => TimeOnly.Parse(Results.Sunrise); }
+    public TimeOnly SunsetTime { get => TimeOnly.Parse(Results.Sunset); }
 
     [JsonProperty("results")] public ResultsContainer Results { get; set; }
     public class ResultsContainer
@@ -19,7 +17,6 @@ class SunriseSunset
         [JsonProperty("sunrise")] public string Sunrise { get; set; } = string.Empty;
         [JsonProperty("sunset")] public string Sunset { get; set; } = string.Empty;
     }
-
 
     private async Task GetSunriseSunsetAsync()
     {
@@ -34,7 +31,7 @@ class SunriseSunset
         {
             var response = await client.GetStringAsync(url);
             var result = JsonConvert.DeserializeObject<SunriseSunset>(response);
-            XMapper<SunriseSunset, SunriseSunset>.xMapper.Map(result, this);
+            XMapper.Map(result, this);
         }
     }
     public static async Task<SunriseSunset> Create()

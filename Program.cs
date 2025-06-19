@@ -1,16 +1,7 @@
-﻿using System.Globalization;
-
+﻿Console.WriteLine("Loading...");
 
 var sunriseSunsetTask = SunriseSunset.Create();
-var sunriseSunset = await sunriseSunsetTask;
+var result = await sunriseSunsetTask;
 
-TimeOnly sunrise = TimeOnly.ParseExact(sunriseSunset.PSunrise,
-    "h:mm:ss tt",
-    CultureInfo.InvariantCulture);
-TimeOnly sunset = TimeOnly.ParseExact(sunriseSunset.PSunset,
-    "h:mm:ss tt",
-    CultureInfo.InvariantCulture);
-
-Console.WriteLine($"Sunrise {sunrise.ToString("HH:mm")}\nSunset {sunset.ToString("HH:mm")}");
+Console.WriteLine($"Sunrise {result.SunriseTime:HH:mm}\nSunset {result.SunsetTime:HH:mm}");
 Console.ReadKey();
-

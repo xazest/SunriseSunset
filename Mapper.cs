@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
-public static class XMapper<T, T2>
+public static class XMapper
 {
-    public static readonly IMapper xMapper = new MapperConfiguration(cfg =>
+    public static void Map<TSource>(TSource source, object destination)
     {
-        cfg.CreateMap<T, T2>();
-    }).CreateMapper();
+        var config = new MapperConfiguration(cfg =>
+        cfg.CreateMap(typeof(TSource), destination.GetType()));
+        var mapper = config.CreateMapper();
+        mapper.Map(source, destination);
+    }
 }
