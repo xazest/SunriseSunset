@@ -10,15 +10,14 @@ class SunriseSunset
 
     public TimeOnly SunriseTime { get => TimeOnly.Parse(Results.Sunrise); }
     public TimeOnly SunsetTime { get => TimeOnly.Parse(Results.Sunset); }
-    public TimeSpan DayLength { get => TimeSpan.Parse(Results.DayLength); }
-    public TimeSpan NightLength { get => TimeSpan.FromHours(24) - DayLength; }
+    public TimeSpan NightLength { get => TimeSpan.FromHours(24) - Results.DayLength; }
 
-    [JsonProperty("results")] public ResultsContainer Results { get; set; }
+    [JsonProperty("results")] public ResultsContainer Results { get; private set; }
     public class ResultsContainer
     {
         [JsonProperty("sunrise")] public string Sunrise { get; set; } = string.Empty;
         [JsonProperty("sunset")] public string Sunset { get; set; } = string.Empty;
-        [JsonProperty("day_length")] public string DayLength { get; set; } = string.Empty;
+        [JsonProperty("day_length")] public TimeSpan DayLength { get; set; } 
     }
 
     private async Task GetSunriseSunsetAsync()
