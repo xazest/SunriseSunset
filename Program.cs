@@ -3,5 +3,8 @@
 var sunriseSunsetTask = SunriseSunset.Create();
 var result = await sunriseSunsetTask;
 
-Console.WriteLine($"Sunrise {result.SunriseTime:HH:mm}\nSunset {result.SunsetTime:HH:mm}");
+Console.WriteLine($"Sunrise {result.SunriseTime:HH:mm}\n" +
+    $"Sunset {result.SunsetTime:HH:mm}\n\n" +
+    $"Day Length {result.DayLength}\n" +
+    $"Night Length {result.NightLength}");
 Console.ReadKey();
